@@ -20,35 +20,61 @@
           
     
         
-        $productId = $dData['productid'];
+        $productId = $dData['productIds'];
 
         $result = "";
         $resultProduct = "";
  
        
+        if ($productId != "") {
+            // $sql = "SELECT * FROM users WHERE email='$email' AND password='$pass';";
 
+            // echo $productId;
+            // exit();
+            // $sql = "SELECT id,name,email,roleid,statusid FROM users WHERE email='$email' AND password='$pass';";
+            $sql = "DELETE FROM productsinfo WHERE id = '$productId'";
+   
+            $res = mysqli_query($mysqli, $sql);
+             
+            
+            
+            if (mysqli_num_rows($res) != 0) {
+             
+                $data = mysqli_fetch_row($res);
+                // http_response_code(401); // Unauthorized
+                $result = $data;
+                // $result = "login";
+            } else {
+                $result = "Delete Failed";
+                http_response_code(200); // OK
+            }
+        } else {
+            $result = "";
+        }
      
             // $sql = "SELECT * FROM productsinfo";
-            $sql = "DELETE FROM productsinfo WHERE id = 10";
+            // $sql = "DELETE FROM productsinfo WHERE id = '$productId'";
+            //     //   echo mysqli_connect_error();
+            //     //    exit();
              
-            $res = mysqli_query($mysqli, $sql);
+            // $res = mysqli_query($mysqli, $sql);
            
      
            
-            if (mysqli_num_rows($res) != 0) {
+            // if (mysqli_num_rows($res) != 0) {
             
-            // Fetch all
-            $result  =  $res -> fetch_all(MYSQLI_ASSOC);
+            // // Fetch all
+            // $result  =  $res -> fetch_all(MYSQLI_ASSOC);
                  
-            } else {
-                $result = "feedback failed ";
+            // } else {
+            //     $result = "feedback failed ";
                 
-                $resultProduct = [];
-            }
+            //     $resultProduct = [];
+            // }
       
  
         $mysqli -> close();
-    // $response[] = $resultProduct;
+        // $response[] = $resultProduct;
         $response[] = array("result" => $result);
 
         echo json_encode($response);
