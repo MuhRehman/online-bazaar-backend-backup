@@ -20,40 +20,37 @@
           
     
         
-        $email = $dData['email'];
-        $pass = $dData['pass'];
+        $productId = $dData['productid'];
 
         $result = "";
+        $resultProduct = "";
  
        
 
-        if ($email != "") {
-            // $sql = "SELECT * FROM users WHERE email='$email' AND password='$pass';";
-
-
-            $sql = "SELECT id,name,email,roleid,statusid FROM users WHERE email='$email' AND password='$pass';";
-
-
+     
+            // $sql = "SELECT * FROM productsinfo";
+            $sql = "DELETE FROM productsinfo WHERE id = 10";
+             
             $res = mysqli_query($mysqli, $sql);
-             
-            
-            
+           
+     
+           
             if (mysqli_num_rows($res) != 0) {
-             
-                $data = mysqli_fetch_row($res);
-                // http_response_code(401); // Unauthorized
-                $result = $data;
-                // $result = "login";
+            
+            // Fetch all
+            $result  =  $res -> fetch_all(MYSQLI_ASSOC);
+                 
             } else {
-                $result = "login failed";
-                http_response_code(200); // OK
+                $result = "feedback failed ";
+                
+                $resultProduct = [];
             }
-        } else {
-            $result = "";
-        }
+      
  
         $mysqli -> close();
+    // $response[] = $resultProduct;
         $response[] = array("result" => $result);
+
         echo json_encode($response);
     }
  

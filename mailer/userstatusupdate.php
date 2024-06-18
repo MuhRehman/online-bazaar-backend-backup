@@ -27,9 +27,10 @@
         
         $result = "";
  
-        // if (  $rolestatusId != "" ) {
-            // echo "Connected Not insert!";exit;
-            $sql = "UPDATE users SET statusid = 'Approvedss' WHERE id = $rolestatusId;";
+        if (  $rolestatusId != "" ) {
+            // echo "Connected Not insert!";exit; 
+            $sql = "UPDATE users SET statusid = 'Approved' WHERE id=$rolestatusId";
+            // $sql = "UPDATE users SET statusid = 'Approvedss' WHERE id = $rolestatusId;";
             // $sql = "INSERT INTO users(name, email, password, roleid,status) VALUES('$user', '$email', '$pass', '$rolestatus');";
           
             $res = mysqli_query($mysqli, $sql);
@@ -41,9 +42,9 @@
                 $result = "";
             }
             
-        // } else {
-        //     $result = "";
-        // }
+        } else {
+            $result = "";
+        }
  
         $mysqli -> close();
         $response[] = array("result" => $result);
