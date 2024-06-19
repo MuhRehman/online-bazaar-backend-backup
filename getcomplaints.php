@@ -37,17 +37,19 @@
             if (mysqli_num_rows($res) != 0) {
             
             // Fetch all
-            $resultProduct =  $res -> fetch_all(MYSQLI_ASSOC);
+            $result =  $res -> fetch_all(MYSQLI_ASSOC);
                  
             } else {
-                $result = "login failed 11";
+                $result = "Complations";
                 
                 $resultProduct = [];
             }
       
  
         $mysqli -> close();
-        $response = $resultProduct;
+    // $response = $result;
+    $response[] = array("result" => $result);
+    
         // $response[] = array("result" => $result);
 
         echo json_encode($response);
