@@ -38,11 +38,11 @@
             if ($res) {
                 $result = "You Have Registered Successfully!";
             } else {
-                $result = "";
+                $result = "2";
             }
             
         } else {
-            $result = "";
+            $result = "3";
         }
  
         $mysqli -> close();

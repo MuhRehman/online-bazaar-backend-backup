@@ -28,7 +28,7 @@
        
 
      
-            $sql = "SELECT * FROM feedback";
+            $sql = "SELECT * FROM feedbackdetails";
              
             $res = mysqli_query($mysqli, $sql);
            

@@ -26,8 +26,8 @@
             $resultProduct = "";
     
         
-            // $sql = "SELECT * FROM feedback";
-            $sql = "SELECT id,feedback,rating  FROM feedback where userId = 100";
+            $sql = "SELECT * FROM feedbackdetails";
+       
              
             $res = mysqli_query($mysqli, $sql);
            
@@ -46,7 +46,7 @@
  
         $mysqli -> close();
         $response = $resultProduct;
-        // $response[] = array("result" => $result);
+        $response[] = array("result" => $result);
 
         echo json_encode($response);
     }

@@ -20,31 +20,34 @@
         $eData = file_get_contents("php://input");
         $dData = json_decode($eData, true);
  
-        $user = $dData['fname'];
-        // $email = $dData['orderemail'];
-        $email = "paki_jan@yahoo.com";
-        $pass = $dData['orderaddress'];
-        $role = $dData['roleid'];
+        // $user = $dData['user'];
+        // $email = $dData['email'];
+        // $pass = $dData['pass'];
+        // $role = $dData['roleid'];
+        $fname = $dData['fname'];
+        $orderemail = $dData['orderemail'];
+        $orderaddress = $dData['orderaddress'];
         
         
         $result = "";
  
-        // if ($user != "" && $email != "" && $pass != "") {
+        if ($orderemail!= "" ) {
             // echo "Connected Not insert!";exit;
-            $sql = "INSERT INTO orderinfo(fname, orderemail, orderaddress) VALUES('$user', '$email', '$pass');";
+            // $sql = "INSERT INTO users (name, email, password, roleid,statusid) VALUES('$user', '$email', '$pass', '$role', 'Pending');";
+            $sql = "INSERT INTO orderinfo(fname, orderemail, orderaddress,orderid) VALUES('$fname', '$orderemail', '$orderaddress','12');";
           
             $res = mysqli_query($mysqli, $sql);
 
           
             if ($res) {
-                $result = "You Have order Successfully!";
+                $result = "You Have Order Successfully!";
             } else {
-                $result = "1";
+                $result = "2";
             }
             
-        // } else {
-        //     $result = "2";
-        // }
+        } else {
+            $result = "3";
+        }
  
         $mysqli -> close();
         $response[] = array("result" => $result);
@@ -62,12 +65,9 @@
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
 
-//    $user_names = $dData['fname'];
-   $user_names = "rehman";;
-//    $user_namesa = $dData['fname'];
-   $user_namesa = "rehman";
-//    $send_to_email = $dData['orderemail'];
-   $send_to_email =  "paki_jan@yahoo.com";
+    $user_names = $dData['fname'];
+    $user_namesa = $dData['orderaddress'];
+    $send_to_email = $dData['orderemail'];
     // $pass = $dData['pass'];
 
 function sendMail($send_to_email, $user_namesa, $user_names) {
@@ -91,10 +91,10 @@ function sendMail($send_to_email, $user_namesa, $user_names) {
     $mail->addAddress($send_to_email);
 
     // You can change the subject according to your requirement!
-    $mail->Subject = " Activation";
+    $mail->Subject = "Confirmation of Successful Order Dispatch";
 
     // You can change the Body Message according to your requirement!
-    $mail->Body = "Hello , {$user_names}\nWhy  Online Bazaar !  {$user_namesa}.";
+    $mail->Body = "Hello !, {$user_names}\nYour order has been successfully dispatched and confirmed !  {$user_namesa}.";
     $mail->send();
   
     echo "Successfully to connect to Sent";
